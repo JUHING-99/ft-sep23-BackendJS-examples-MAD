@@ -1,22 +1,11 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const router = require('express').Router()
 
-app.use(express.json()); // Habilito recepción de JSON en servidor
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.get("/weather", (req, res) => {
-    res.status(200).send("Aquí va el tiempo!");
-});
 
 // Query params:
 // http://localhost:3000/books/quijote
 // http://localhost:3000/books/
 // http://localhost:3000/books/celestina
-/* app.get("/books/:title?", (req, res) => {
+/* router.get("/books/:title?", (req, res) => {
     if(req.params.title){
         console.log(req.params.title);
         res.status(200).send("Has pedido: "+req.params.title);
@@ -27,12 +16,11 @@ app.get("/weather", (req, res) => {
 
 }); */
 
-
 // Query params:
 // http://localhost:3000/books/quijote
 // http://localhost:3000/books/
 // http://localhost:3000/books/celestina
-app.get("/books/:title?", (req, res) => {
+router.get("/:title?", (req, res) => {
 
     console.log(req.params.title);
 
@@ -88,7 +76,7 @@ app.get("/books/:title?", (req, res) => {
   "description": "en un lugar de la mancha..."
 }
 */
-app.post("/books", (req, res) => {
+router.post("/", (req, res) => {
     console.log(req.body);
     res.status(201).json({
         success:true,
@@ -98,25 +86,11 @@ app.post("/books", (req, res) => {
     });
 });
 
-app.put("/books", (req, res) => {
+router.put("/", (req, res) => {
     res.status(200).send("Libro editado!");
 });
-app.delete("/books/:title?", (req, res) => {
+router.delete("/:title?", (req, res) => {
     res.status(200).send("Libro borrado!. Has borrado:"+req.params.title);
 });
 
-
-
-
-
-
-
-// Última ruta por defecto. En caso de no encotrarse ninguna anterior, devolvemos un 404
-// Para rutas no existentes
-app.get("*",(req,res)=>{
-    res.status(404).send("Gatito triste - 404 not found");
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on http://localhost:${port}`)
-})
+module.exports = router;
