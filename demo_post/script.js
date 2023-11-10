@@ -19,10 +19,7 @@ document.getElementById("send").addEventListener("click",() => {
             .then(data=>{
                 document.getElementById("message1").innerHTML = "Producto guardado con ID: "+data.id;
                 console.log(data)
-
             })
-
-
 })
 
 
